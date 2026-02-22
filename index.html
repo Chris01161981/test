@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剪刀石頭布</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+        }
+        
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .score-board {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .score {
+            text-align: center;
+        }
+        
+        .score-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .score-value.player {
+            color: #4ade80;
+        }
+        
+        .score-value.computer {
+            color: #f87171;
+        }
+        
+        .result {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .result.win { color: #4ade80; }
+        .result.lose { color: #f87171; }
+        .result.draw { color: #fbbf24; }
+        
+        .choices {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .choice {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .choice:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .choice.scissors { border-color: #e879f9; }
+        .choice.rock { border-color: #60a5fa; }
+        .choice.paper { border-color: #4ade80; }
+        
+        .choice-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .choice-label {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        
+        .history {
+            margin-top: 30px;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .history-title {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .history-item {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+        
+        .history-item.win { background: rgba(74, 222, 128, 0.2); }
+        .history-item.lose { background: rgba(248, 113, 113, 0.2); }
+        .history-item.draw { background: rgba(251, 191, 36, 0.2); }
+        
+        .reset-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #e879f9, #f472b6);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .reset-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>✂️🪨📄 剪刀石頭布</h1>
+    <p class="subtitle">來挑戰電腦吧！</p>
+    
+    <div class="score-board">
+        <div class="score">
+            <div class="score-label">你</div>
+            <div class="score-value player" id="playerScore">0</div>
+        </div>
+        <div class="score">
+            <div class="score-label">電腦</div>
+            <div class="score-value computer" id="computerScore">0</div>
+        </div>
+    </div>
+    
+    <div class="result" id="result">選擇你的出拳開始遊戲！</div>
+    
+    <div class="choices">
+        <button class="choice scissors" onclick="play('scissors')">
+            <span class="choice-icon">✂️</span>
+            <span class="choice-label">剪刀</span>
+        </button>
+        <button class="choice rock" onclick="play('rock')">
+            <span class="choice-icon">🪨</span>
+            <span class="choice-label">石頭</span>
+        </button>
+        <button class="choice paper" onclick="play('paper')">
+            <span class="choice-icon">📄</span>
+            <span class="choice-label">布</span>
+        </button>
+    </div>
+    
+    <div class="history">
+        <div class="history-title">最近戰績</div>
+        <div class="history-list" id="history"></div>
+    </div>
+    
+    <button class="reset-btn" onclick="resetGame()">重新開始</button>
+    
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+        const history = [];
+        const choices = ['scissors', 'rock', 'paper'];
+        const choiceNames = {
+            scissors: '✂️ 剪刀',
+            rock: '🪨 石頭',
+            paper: '📄 布'
+        };
+        
+        function computerPlay() {
+            return choices[Math.floor(Math.random() * 3)];
+        }
+        
+        function play(playerChoice) {
+            const computerChoice = computerPlay();
+            let result;
+            
+            if (playerChoice === computerChoice) {
+                result = 'draw';
+            } else if (
+                (playerChoice === 'scissors' && computerChoice === 'paper') ||
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock')
+            ) {
+                result = 'win';
+                playerScore++;
+            } else {
+                result = 'lose';
+                computerScore++;
+            }
+            
+            updateDisplay(playerChoice, computerChoice, result);
+            updateHistory(playerChoice, computerChoice, result);
+        }
+        
+        function updateDisplay(playerChoice, computerChoice, result) {
+            document.getElementById('playerScore').textContent = playerScore;
+            document.getElementById('computerScore').textContent = computerScore;
+            
+            const resultEl = document.getElementById('result');
+            resultEl.className = 'result ' + result;
+            
+            const messages = {
+                win: '🎉 你贏了！',
+                lose: '💀 你輸了！',
+                draw: '🤝 平手！'
+            };
+            
+            resultEl.textContent = `${messages[result]} 你出 ${choiceNames[playerChoice]}，電腦出 ${choiceNames[computerChoice]}`;
+        }
+        
+        function updateHistory(playerChoice, computerChoice, result) {
+            history.unshift({ playerChoice, computerChoice, result });
+            if (history.length > 10) history.pop();
+            
+            const historyEl = document.getElementById('history');
+            historyEl.innerHTML = history.map(h => {
+                const symbols = {
+                    scissors: '✂️',
+                    rock: '🪨',
+                    paper: '📄'
+                };
+                return `<span class="history-item ${h.result}">${symbols[h.playerChoice]} vs ${symbols[h.computerChoice]}</span>`;
+            }).join('');
+        }
+        
+        function resetGame() {
+            playerScore = 0;
+            computerScore = 0;
+            history.length = 0;
+            
+            document.getElementById('playerScore').textContent = '0';
+            document.getElementById('computerScore').textContent = '0';
+            document.getElementById('result').textContent = '選擇你的出拳開始遊戲！';
+            document.getElementById('result').className = 'result';
+            document.getElementById('history').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
