@@ -3,692 +3,724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenClaw - 您的個人 AI 助理</title>
+    <title>極速賽車 | Racing Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --accent: #f4a261;
+            --dark: #0d1117;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            padding: 20px 0;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
+
+        /* Navigation */
+        nav {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 100;
-        }
-        
-        header .container {
+            width: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid var(--primary);
         }
-        
+
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #00d9ff;
-        }
-        
-        .logo span {
-            color: #ff6b6b;
-        }
-        
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 30px;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: #00d9ff;
-        }
-        
-        /* Hero */
-        .hero {
-            padding: 180px 0 120px;
-            text-align: center;
-            color: #fff;
-        }
-        
-        .hero h1 {
-            font-size: 56px;
-            margin-bottom: 30px;
-            background: linear-gradient(90deg, #00d9ff, #ff6b6b);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        .hero p {
-            font-size: 22px;
-            color: #aaa;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-        
-        .hero .tagline {
-            font-size: 28px;
-            color: #00d9ff;
-            margin-bottom: 40px;
-        }
-        
-        .cta-buttons {
+
+        .nav-links {
             display: flex;
-            gap: 20px;
-            justify-content: center;
+            gap: 2rem;
+            list-style: none;
         }
-        
-        .btn {
-            padding: 15px 40px;
-            border-radius: 50px;
+
+        .nav-links a {
+            color: var(--light);
             text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: inline-block;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
         }
-        
-        .btn-primary {
-            background: linear-gradient(90deg, #00d9ff, #0099cc);
-            color: #fff;
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+
+        .nav-links a:hover {
+            color: var(--primary);
         }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #00d9ff;
-            color: #00d9ff;
-        }
-        
-        .btn-secondary:hover {
-            background: #00d9ff;
-            color: #1a1a2e;
-        }
-        
-        /* Features */
-        .features {
-            padding: 100px 0;
-            background: #0f0f23;
-        }
-        
-        .section-title {
-            text-align: center;
-            color: #fff;
-            font-size: 40px;
-            margin-bottom: 60px;
-        }
-        
-        .section-title span {
-            color: #00d9ff;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            padding: 40px;
-            border-radius: 20px;
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 217, 255, 0.1);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: #00d9ff;
-        }
-        
-        .feature-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            color: #00d9ff;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #aaa;
-            font-size: 16px;
-        }
-        
-        /* Background */
-        .background {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-        
-        .bg-content {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-        
-        .bg-text {
-            flex: 1;
-            min-width: 300px;
-            color: #fff;
-        }
-        
-        .bg-text h2 {
-            font-size: 40px;
-            margin-bottom: 30px;
-        }
-        
-        .bg-text h2 span {
-            color: #ff6b6b;
-        }
-        
-        .bg-text p {
-            color: #aaa;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        
-        .bg-image {
-            flex: 1;
-            min-width: 300px;
-            background: linear-gradient(145deg, #00d9ff20, #ff6b6b20);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-        }
-        
-        .bg-image .placeholder {
-            font-size: 100px;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background: #0f0f23;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background: #1a1a2e;
-            padding: 30px;
-            border-radius: 20px;
-            border-left: 4px solid #00d9ff;
-        }
-        
-        .testimonial-card p {
-            color: #ccc;
-            font-size: 16px;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-card .author {
-            color: #00d9ff;
-            font-weight: bold;
-        }
-        
-        /* Videos */
-        .videos {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-        
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .video-card {
-            background: #1a1a2e;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
-        }
-        
-        .video-card iframe {
+
+        .nav-links a:hover::after {
             width: 100%;
-            aspect-ratio: 16/9;
-            border: none;
         }
-        
-        .video-card .video-title {
-            padding: 20px;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-        }
-        
-        /* Channels */
-        .channels {
-            padding: 100px 0;
-            background: #0f0f23;
-        }
-        
-        .channels-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .channel-badge {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            padding: 15px 30px;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 18px;
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: all 0.3s;
+            justify-content: center;
+            position: relative;
+            background: 
+                linear-gradient(to bottom, rgba(13, 17, 23, 0.7), var(--dark)),
+                url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1920') center/cover;
         }
-        
-        .channel-badge:hover {
-            transform: scale(1.05);
-            border-color: #00d9ff;
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
         }
-        
-        .channel-badge .icon {
-            font-size: 24px;
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
         }
-        
-        /* LLMs */
-        .llms {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+
+        .hero h1 span {
+            color: var(--primary);
         }
-        
-        .llms-grid {
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation:1s ease 0.4s both;
+        }
+
+ fadeInUp         .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Racing Strip */
+        .racing-strip {
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary) 0px,
+                var(--primary) 50px,
+                var(--dark) 50px,
+                var(--dark) 100px
+            );
+            animation: race 2s linear infinite;
+        }
+
+        @keyframes race {
+            from { background-position: 0 0; }
+            to { background-position: 100px 0; }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 1rem auto;
+        }
+
+        /* Schedule */
+        .schedule-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .race-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .race-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .race-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .race-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .race-track {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .race-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .status-upcoming {
+            background: rgba(244, 162, 97, 0.2);
+            color: var(--accent);
+        }
+
+        .status-completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        /* Standings */
+        .standings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .standings-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .standings-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .driver-row {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .driver-row:last-child {
+            border-bottom: none;
+        }
+
+        .position {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            width: 40px;
+            color: var(--primary);
+        }
+
+        .driver-info {
+            flex: 1;
+        }
+
+        .driver-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .driver-team {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .points {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Teams */
+        .teams-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 2rem;
         }
-        
-        .llm-card {
-            background: #1a1a2e;
-            padding: 25px;
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
+            padding: 2rem;
             text-align: center;
-            border: 1px solid rgba(0, 217, 255, 0.1);
-            transition: all 0.3s;
+            transition: transform 0.3s;
         }
-        
-        .llm-card:hover {
-            border-color: #00d9ff;
-            transform: translateY(-5px);
+
+        .team-card:hover {
+            transform: translateY(-10px);
         }
-        
-        .llm-card h3 {
-            color: #00d9ff;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .llm-card p {
-            color: #aaa;
-            font-size: 14px;
-        }
-        
-        .llm-card .tag {
-            display: inline-block;
-            background: #ff6b6b20;
-            color: #ff6b6b;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-top: 10px;
-        }
-        
-        /* Mac Mini Section */
-        .macmini {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-        
-        .macmini-content {
+
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 2rem;
         }
-        
-        .macmini-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
+
+        .team-card h3 {
+            margin-bottom: 0.5rem;
         }
-        
-        .macmini-image img {
-            max-width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+
+        .team-card p {
+            color: #888;
+            font-size: 0.9rem;
         }
-        
-        .macmini-text {
-            flex: 1;
-            min-width: 300px;
-            color: #fff;
+
+        /* News */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-        
-        .macmini-text h2 {
-            font-size: 40px;
-            margin-bottom: 20px;
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
         }
-        
-        .macmini-text h2 span {
-            color: #00d9ff;
+
+        .news-card:hover {
+            transform: translateY(-5px);
         }
-        
-        .macmini-text p {
-            color: #aaa;
-            font-size: 18px;
-            margin-bottom: 15px;
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
         }
-        
-        .macmini-text .highlight {
-            color: #ff6b6b;
-            font-weight: bold;
+
+        .news-content {
+            padding: 1.5rem;
         }
-        
+
+        .news-date {
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-excerpt {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
         /* Footer */
         footer {
-            padding: 40px 0;
-            background: #0a0a1a;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem;
             text-align: center;
-            color: #666;
+            border-top: 2px solid var(--primary);
         }
-        
-        footer a {
-            color: #00d9ff;
+
+        footer p {
+            color: #888;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
             text-decoration: none;
+            transition: background 0.3s;
         }
-        
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
         /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .float {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        /* Responsive */
+
+        /* Mobile */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.5rem;
             }
-            .hero p {
-                font-size: 18px;
+            
+            .nav-links {
+                display: none;
             }
-            .cta-buttons {
+            
+            .race-card {
                 flex-direction: column;
-            }
-            .section-title {
-                font-size: 28px;
+                text-align: center;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">Open<span>Claw</span> 🦞</div>
-            <nav>
-                <a href="#background">背景</a>
-                <a href="#features">功能</a>
-                <a href="#channels">通訊</a>
-                <a href="#llms">LLM</a>
-                <a href="#macmini">Mac mini</a>
-                <a href="#videos">影片</a>
-                <a href="#testimonials">評價</a>
-                <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
-            </nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🏎️ RACING PRO</div>
+        <ul class="nav-links">
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#schedule">賽程</a></li>
+            <li><a href="#standings">排名</a></li>
+            <li><a href="#teams">車隊</a></li>
+            <li><a href="#news">新聞</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>2026 <span>賽車</span> 賽季</h1>
+            <p>極速激情 · 追逐夢想 · 超越極限</p>
+            <a href="#schedule" class="cta-btn">查看賽程</a>
         </div>
-    </header>
-    
-    <section class="hero">
-        <div class="container">
-            <div class="hero-image">
-                <img src="macmini-lobster.jpg" alt="OpenClaw - 大家瘋搶 Mac mini 玩龍蝦" style="max-width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3); margin-bottom: 40px;">
+    </section>
+
+    <div class="racing-strip"></div>
+
+    <!-- Schedule -->
+    <section id="schedule">
+        <h2 class="section-title">🏁 2026 賽程</h2>
+        <div class="schedule-grid">
+            <div class="race-card">
+                <div>
+                    <div class="race-date">03月15日</div>
+                    <div class="race-name">🇦🇺 澳洲大獎賽</div>
+                    <div class="race-track">墨爾本賽道 - 58圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
             </div>
-            <h1>OpenClaw</h1>
-            <p class="tagline">「會做事」的 AI 助理</p>
-            <p>清理您的信箱、發送郵件、管理日曆、辦理登機手續。<br>全部透過 WhatsApp、Telegram 或任何您已經在用的通訊軟體完成。</p>
-            <div class="cta-buttons">
-                <a href="https://github.com/openclaw/openclaw" class="btn btn-primary" target="_blank">GitHub</a>
-                <a href="https://docs.openclaw.ai" class="btn btn-secondary" target="_blank">開始使用</a>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">03月29日</div>
+                    <div class="race-name">🇨🇳 中國大獎賽</div>
+                    <div class="race-track">上海國際賽車場 - 56圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">04月06日</div>
+                    <div class="race-name">🇯🇵 日本大獎賽</div>
+                    <div class="race-track">鈴鹿賽道 - 53圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">04月20日</div>
+                    <div class="race-name">🇸🇦 沙烏地阿拉伯大獎賽</div>
+                    <div class="race-track">吉達賽道 - 50圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">05月04日</div>
+                    <div class="race-name">🇺🇸 邁阿密大獎賽</div>
+                    <div class="race-track">邁阿密國際賽道 - 57圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">05月18日</div>
+                    <div class="race-name">🇮🇹 艾米利亞-羅馬涅大獎賽</div>
+                    <div class="race-track">恩佐·法拉利賽道 - 63圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
             </div>
         </div>
     </section>
-    
-    <section class="background" id="background">
-        <div class="container">
-            <div class="bg-content">
-                <div class="bg-text">
-                    <h2>什麼是 <span>OpenClaw</span>？</h2>
-                    <p>OpenClaw 是一個開源的個人 AI 助理框架，由 Peter Thiel 的工程師 @steipete 開發。</p>
-                    <p>它不只是一個聊天機器人——它是一個有「眼睛和雙手」的 AI，能夠在您的電腦上執行各種任務，就像一個真正的同事一樣。</p>
-                    <p>OpenClaw 的特點是：<strong>開放原始碼、可自訂、可自己托管</strong>。您的資料和上下文都保存在自己的電腦上，而非被鎖在某個 SaaS 平台裡。</p>
+
+    <!-- Standings -->
+    <section id="standings">
+        <h2 class="section-title">🏆 積分排名</h2>
+        <div class="standings-container">
+            <div class="standings-box">
+                <h3>🏎️ 車手積分</h3>
+                <div class="driver-row">
+                    <span class="position">1</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Max Verstappen</div>
+                        <div class="driver-team">Red Bull Racing</div>
+                    </div>
+                    <span class="points">97 PTS</span>
                 </div>
-                <div class="bg-image">
-                    <div class="float">🦞</div>
+                <div class="driver-row">
+                    <span class="position">2</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Lando Norris</div>
+                        <div class="driver-team">McLaren</div>
+                    </div>
+                    <span class="points">89 PTS</span>
                 </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">強大 <span>功能</span></h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3>多平台支援</h3>
-                    <p>支援 WhatsApp、Telegram、Discord、LINE、Signal 等多種通訊軟體，選擇您最習慣的方式與 AI 互動。</p>
+                <div class="driver-row">
+                    <span class="position">3</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Oscar Piastri</div>
+                        <div class="driver-team">McLaren</div>
+                    </div>
+                    <span class="points">76 PTS</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>持久記憶</h3>
-                    <p>OpenClaw 會記住您告訴它的一切。您可以建立專屬的人格設定，它會記住您的偏好、習慣和需求。</p>
+                <div class="driver-row">
+                    <span class="position">4</span>
+                    <div class="driver-info">
+                        <div class="driver-name">George Russell</div>
+                        <div class="driver-team">Mercedes</div>
+                    </div>
+                    <span class="points">64 PTS</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>主動出擊</h3>
-                    <p>支援定時任務（Cron Jobs）和提醒功能。AI 會在背景主動執行任務，不需要您每次下指令。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔌</div>
-                    <h3>無限擴充</h3>
-                    <p>透過「Skills」系統，您可以自己開發各種擴充功能，讓 AI 幫您連接任何服務或 API。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>開源透明</h3>
-                    <p>所有程式碼公開透明，您可以審查、修改、在自己的伺服器上運行，完全掌控自己的資料。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🖥️</div>
-                    <h3>電腦控制</h3>
-                    <p>AI 可以控制您的電腦——瀏覽網頁、操作應用程式、讀寫檔案，執行各種需要圖形介面的任務。</p>
+                <div class="driver-row">
+                    <span class="position">5</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Charles Leclerc</div>
+                        <div class="driver-team">Ferrari</div>
+                    </div>
+                    <span class="points">59 PTS</span>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <section class="channels" id="channels">
-        <div class="container">
-            <h2 class="section-title">支援 <span>通訊平台</span></h2>
-            <p style="text-align: center; color: #aaa; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">OpenClaw 支援多種通訊平台，選擇您最習慣的方式與 AI 互動</p>
-            <div class="channels-grid">
-                <div class="channel-badge"><span class="icon">💬</span> Telegram</div>
-                <div class="channel-badge"><span class="icon">📱</span> WhatsApp</div>
-                <div class="channel-badge"><span class="icon">💙</span> LINE</div>
-                <div class="channel-badge"><span class="icon">🎮</span> Discord</div>
-                <div class="channel-badge"><span class="icon">🔔</span> Signal</div>
-                <div class="channel-badge"><span class="icon">💬</span> iMessage</div>
-                <div class="channel-badge"><span class="icon">🏠</span> Google Chat</div>
-                <div class="channel-badge"><span class="icon">👥</span> Slack</div>
-                <div class="channel-badge"><span class="icon">🌐</span> Matrix</div>
-                <div class="channel-badge"><span class="icon">💬</span> IRC</div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="llms" id="llms">
-        <div class="container">
-            <h2 class="section-title">支援 <span>語言模型</span></h2>
-            <p style="text-align: center; color: #aaa; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">OpenClaw 支援多種 LLM 提供者，您可以根據需求選擇最適合的模型</p>
-            <div class="llms-grid">
-                <div class="llm-card">
-                    <h3>Claude (Anthropic)</h3>
-                    <p>Claude 3.5 Sonnet, 3 Opus, 3 Haiku</p>
-                    <span class="tag">支援推理</span>
+            <div class="standings-box">
+                <h3>🏭 車隊積分</h3>
+                <div class="driver-row">
+                    <span class="position">1</span>
+                    <div class="driver-info">
+                        <div class="driver-name">McLaren</div>
+                        <div class="driver-team">Norris / Piastri</div>
+                    </div>
+                    <span class="points">165 PTS</span>
                 </div>
-                <div class="llm-card">
-                    <h3>GPT (OpenAI)</h3>
-                    <p>GPT-4o, GPT-4o mini, o1, o3</p>
-                    <span class="tag">多模態</span>
+                <div class="driver-row">
+                    <span class="position">2</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Red Bull Racing</div>
+                        <div class="driver-team">Verstappen / Perez</div>
+                    </div>
+                    <span class="points">143 PTS</span>
                 </div>
-                <div class="llm-card">
-                    <h3>Gemini (Google)</h3>
-                    <p>Gemini 2.0 Flash, Pro, Ultra</p>
-                    <span class="tag">快速回應</span>
+                <div class="driver-row">
+                    <span class="position">3</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Mercedes</div>
+                        <div class="driver-team">Russell / Hamilton</div>
+                    </div>
+                    <span class="points">112 PTS</span>
                 </div>
-                <div class="llm-card">
-                    <h3>MiniMax</h3>
-                    <p>M2.1, M2.5</p>
-                    <span class="tag">高效能</span>
+                <div class="driver-row">
+                    <span class="position">4</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Ferrari</div>
+                        <div class="driver-team">Leclerc / Sainz</div>
+                    </div>
+                    <span class="points">107 PTS</span>
                 </div>
-                <div class="llm-card">
-                    <h3>DeepSeek</h3>
-                    <p>V3, R1</p>
-                    <span class="tag">開源強者</span>
-                </div>
-                <div class="llm-card">
-                    <h3>Qwen (阿里雲)</h3>
-                    <p>Qwen 2.5, VL</p>
-                    <span class="tag">中文優化</span>
-                </div>
-                <div class="llm-card">
-                    <h3>Llama (Meta)</h3>
-                    <p>Llama 3.1, 3.2, 3.3</p>
-                    <span class="tag">開源本地</span>
-                </div>
-                <div class="llm-card">
-                    <h3>Groq</h3>
-                    <p>Mixtral, Llama, Gemma</p>
-                    <span class="tag">極速推論</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="macmini" id="macmini">
-        <div class="container">
-            <div class="macmini-content">
-                <div class="macmini-image">
-                    <img src="macmini-lobster.jpg" alt="大家瘋搶 Mac mini 玩 OpenClaw">
-                </div>
-                <div class="macmini-text">
-                    <h2>瘋狂的 <span>Mac mini 搶購潮</span></h2>
-                    <p>OpenClaw 出現後，大家開始瘋搶 <span class="highlight">Mac mini</span>！</p>
-                    <p>因為只需要一台小小的 Mac mini，就能運行自己的個人 AI 助理。</p>
-                    <p>「一個有眼睛和雙手的 AI，就像一個真正的同事坐在你旁邊的桌子前。」</p>
-                    <p>這就是未來的樣子——<span class="highlight">每個人都可以擁有屬於自己的 AI 助理</span>。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="videos" id="videos">
-        <div class="container">
-            <h2 class="section-title">觀看 <span>影片</span>介紹</h2>
-            <div class="videos-grid">
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/9yGqot-zEbg" title="OpenClaw Tutorial 1" allowfullscreen></iframe>
-                    <div class="video-title">OpenClaw 介紹影片 1</div>
-                </div>
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/FDM1rogXz38" title="OpenClaw Tutorial 2" allowfullscreen></iframe>
-                    <div class="video-title">OpenClaw 介紹影片 2</div>
-                </div>
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/aEXR8tPesKk" title="OpenClaw Tutorial 3" allowfullscreen></iframe>
-                    <div class="video-title">OpenClaw 介紹影片 3</div>
-                </div>
-                <div class="video-card">
-                    <iframe src="https://www.youtube.com/embed/qT5XXvFkx50" title="OpenClaw Tutorial 4" allowfullscreen></iframe>
-                    <div class="video-title">OpenClaw 介紹影片 4</div>
+                <div class="driver-row">
+                    <span class="position">5</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Aston Martin</div>
+                        <div class="driver-team">Alonso / Stroll</div>
+                    </div>
+                    <span class="points">45 PTS</span>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title">使用者 <span>評價</span></h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p>「這是我這幾年來用過最特別的軟體。自從 ChatGPT 以來，這是第一次讓我覺得自己生活在未來。」</p>
-                    <span class="author">— @davemorin</span>
+
+    <!-- Teams -->
+    <section id="teams">
+        <h2 class="section-title">🏎️ 車隊介紹</h2>
+        <div class="teams-grid">
+            <div class="team-card">
+                <div class="team-logo" style="background: #006f3e; color: #fff;">🏴</div>
+                <h3>McLaren</h3>
+                <p>邁凱倫車隊 | 英國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #1d41a2; color: #fff;">🏴</div>
+                <h3>Red Bull Racing</h3>
+                <p>紅牛車隊 | 奧地利</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #27f4d2; color: #000;">🏴</div>
+                <h3>Mercedes</h3>
+                <p>梅賽德斯車隊 | 德國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #e8002d; color: #fff;">🏴</div>
+                <h3>Ferrari</h3>
+                <p>法拉利車隊 | 義大利</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #229971; color: #fff;">🏴</div>
+                <h3>Aston Martin</h3>
+                <p>阿斯頓·馬丁車隊 | 英國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #5a8bc1; color: #fff;">🏴</div>
+                <h3>Williams</h3>
+                <p>威廉姆斯車隊 | 英國</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section id="news">
+        <h2 class="section-title">📰 賽車新聞</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="images/news1.jpg" alt="News 1" style="width:100%;height:200px;object-fit:cover;">
+                <div class="news-content">
+                    <div class="news-date">2026年2月20日</div>
+                    <div class="news-title">McLaren 延續強勢表現</div>
+                    <div class="news-excerpt">邁凱倫車隊在季前測試中展現出色速度，車隊主管表示對新賽季充滿信心。</div>
                 </div>
-                <div class="testimonial-card">
-                    <p>「它幫我管理整間公司。從設計、程式碼審查到稅務、專案管理、內容管線... AI 現在是我的隊友，不是工具。」</p>
-                    <span class="author">— @lycfyi</span>
+            </div>
+            <div class="news-card">
+                <img src="images/news2.jpg" alt="News 2" style="width:100%;height:200px;object-fit:cover;">
+                <div class="news-content">
+                    <div class="news-date">2026年2月18日</div>
+                    <div class="news-title">2026 賽季即將開跑</div>
+                    <div class="news-excerpt">新賽季將於3月15日在澳洲墨爾本拉開序幕，20位車手將為冠軍而戰。</div>
                 </div>
-                <div class="testimonial-card">
-                    <p>「在我的 Raspberry Pi 上安裝 OpenClaw，然後用 Cloudflare 連接，簡直太神奇了。幾分鐘內就用手機建了一個網站！」</p>
-                    <span class="author">— @AlbertMoral</span>
+            </div>
+            <div class="news-card">
+                <img src="images/news3.jpg" alt="News 3" style="width:100%;height:200px;object-fit:cover;">
+                <div class="news-content">
+                    <div class="news-date">2026年2月15日</div>
+                    <div class="news-title">新規則帶來新看點</div>
+                    <div class="news-excerpt">2026年賽季引入多項新規則，包括更強大的動力單元與空力套件修改。</div>
                 </div>
             </div>
         </div>
     </section>
-    
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>OpenClaw — 開源的個人 AI 助理框架</p>
-            <p>GitHub: <a href="https://github.com/openclaw/openclaw" target="_blank">github.com/openclaw/openclaw</a></p>
-            <p>文檔: <a href="https://docs.openclaw.ai" target="_blank">docs.openclaw.ai</a></p>
+        <div class="logo">🏎️ RACING PRO</div>
+        <p>© 2026 Racing Pro. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">📱</a>
+            <a href="#">🐦</a>
+            <a href="#">📘</a>
+            <a href="#">📷</a>
         </div>
     </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(13, 17, 23, 0.98)';
+            } else {
+                nav.style.background = 'rgba(13, 17, 23, 0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
