@@ -258,6 +258,43 @@
             font-weight: bold;
         }
         
+        /* Videos */
+        .videos {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .video-card {
+            background: #1a1a2e;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+        
+        .video-card iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        
+        .video-card .video-title {
+            padding: 20px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+        }
+        
         /* Footer */
         footer {
             padding: 40px 0;
@@ -305,6 +342,7 @@
             <nav>
                 <a href="#background">背景</a>
                 <a href="#features">功能</a>
+                <a href="#videos">影片</a>
                 <a href="#testimonials">評價</a>
                 <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
             </nav>
@@ -372,6 +410,26 @@
                     <div class="feature-icon">🖥️</div>
                     <h3>電腦控制</h3>
                     <p>AI 可以控制您的電腦——瀏覽網頁、操作應用程式、讀寫檔案，執行各種需要圖形介面的任務。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="videos" id="videos">
+        <div class="container">
+            <h2 class="section-title">觀看 <span>影片</span>介紹</h2>
+            <div class="videos-grid">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/9yGqot-zEbg" title="OpenClaw Tutorial 1" allowfullscreen></iframe>
+                    <div class="video-title">OpenClaw 介紹影片 1</div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/FDM1rogXz38" title="OpenClaw Tutorial 2" allowfullscreen></iframe>
+                    <div class="video-title">OpenClaw 介紹影片 2</div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/aEXR8tPesKk" title="OpenClaw Tutorial 3" allowfullscreen></iframe>
+                    <div class="video-title">OpenClaw 介紹影片 3</div>
                 </div>
             </div>
         </div>
