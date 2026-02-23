@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>剪刀石頭布</title>
+    <title>OpenClaw - 您的個人 AI 助理</title>
     <style>
         * {
             margin: 0;
@@ -12,281 +12,397 @@
         }
         
         body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
-            padding: 20px;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
-        .subtitle {
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-        
-        .score-board {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px 40px;
-            border-radius: 15px;
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
         }
         
-        .score {
-            text-align: center;
-        }
-        
-        .score-label {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-        
-        .score-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        
-        .score-value.player {
-            color: #4ade80;
-        }
-        
-        .score-value.computer {
-            color: #f87171;
-        }
-        
-        .result {
-            height: 60px;
+        header .container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-weight: bold;
         }
         
-        .result.win { color: #4ade80; }
-        .result.lose { color: #f87171; }
-        .result.draw { color: #fbbf24; }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00d9ff;
+        }
         
-        .choices {
+        .logo span {
+            color: #ff6b6b;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #00d9ff;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d9ff, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero .tagline {
+            font-size: 28px;
+            color: #00d9ff;
+            margin-bottom: 40px;
+        }
+        
+        .cta-buttons {
             display: flex;
             gap: 20px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00d9ff, #0099cc);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #00d9ff;
+            color: #00d9ff;
+        }
+        
+        .btn-secondary:hover {
+            background: #00d9ff;
+            color: #1a1a2e;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 0;
+            background: #0f0f23;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #fff;
+            font-size: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .section-title span {
+            color: #00d9ff;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d9ff;
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #00d9ff;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        /* Background */
+        .background {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .bg-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .bg-text {
+            flex: 1;
+            min-width: 300px;
+            color: #fff;
+        }
+        
+        .bg-text h2 {
+            font-size: 40px;
             margin-bottom: 30px;
         }
         
-        .choice {
-            width: 120px;
-            height: 120px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 3px solid transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        .bg-text h2 span {
+            color: #ff6b6b;
         }
         
-        .choice:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .choice.scissors { border-color: #e879f9; }
-        .choice.rock { border-color: #60a5fa; }
-        .choice.paper { border-color: #4ade80; }
-        
-        .choice-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        
-        .choice-label {
-            font-size: 1rem;
-            color: #ccc;
-        }
-        
-        .history {
-            margin-top: 30px;
-            max-width: 400px;
-            width: 100%;
-        }
-        
-        .history-title {
-            font-size: 1rem;
+        .bg-text p {
             color: #aaa;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .bg-image {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(145deg, #00d9ff20, #ff6b6b20);
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
         }
         
-        .history-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
+        .bg-image .placeholder {
+            font-size: 100px;
         }
         
-        .history-item {
-            padding: 5px 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            font-size: 0.85rem;
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: #0f0f23;
         }
         
-        .history-item.win { background: rgba(74, 222, 128, 0.2); }
-        .history-item.lose { background: rgba(248, 113, 113, 0.2); }
-        .history-item.draw { background: rgba(251, 191, 36, 0.2); }
-        
-        .reset-btn {
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #e879f9, #f472b6);
-            border: none;
-            border-radius: 25px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s;
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
-        .reset-btn:hover {
-            transform: scale(1.05);
+        .testimonial-card {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 4px solid #00d9ff;
+        }
+        
+        .testimonial-card p {
+            color: #ccc;
+            font-size: 16px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-card .author {
+            color: #00d9ff;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: #0a0a1a;
+            text-align: center;
+            color: #666;
+        }
+        
+        footer a {
+            color: #00d9ff;
+            text-decoration: none;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .section-title {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>✂️🪨📄 剪刀石頭布</h1>
-    <p class="subtitle">來挑戰電腦吧！</p>
-    
-    <div class="score-board">
-        <div class="score">
-            <div class="score-label">你</div>
-            <div class="score-value player" id="playerScore">0</div>
+    <header>
+        <div class="container">
+            <div class="logo">Open<span>Claw</span> 🦞</div>
+            <nav>
+                <a href="#background">背景</a>
+                <a href="#features">功能</a>
+                <a href="#testimonials">評價</a>
+                <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+            </nav>
         </div>
-        <div class="score">
-            <div class="score-label">電腦</div>
-            <div class="score-value computer" id="computerScore">0</div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>OpenClaw</h1>
+            <p class="tagline">「會做事」的 AI 助理</p>
+            <p>清理您的信箱、發送郵件、管理日曆、辦理登機手續。<br>全部透過 WhatsApp、Telegram 或任何您已經在用的通訊軟體完成。</p>
+            <div class="cta-buttons">
+                <a href="https://docs.openclaw.ai" class="btn btn-primary" target="_blank">開始使用</a>
+                <a href="https://github.com/openclaw/openclaw" class="btn btn-secondary" target="_blank">查看 GitHub</a>
+            </div>
         </div>
-    </div>
+    </section>
     
-    <div class="result" id="result">選擇你的出拳開始遊戲！</div>
+    <section class="background" id="background">
+        <div class="container">
+            <div class="bg-content">
+                <div class="bg-text">
+                    <h2>什麼是 <span>OpenClaw</span>？</h2>
+                    <p>OpenClaw 是一個開源的個人 AI 助理框架，由 Peter Thiel 的工程師 @steipete 開發。</p>
+                    <p>它不只是一個聊天機器人——它是一個有「眼睛和雙手」的 AI，能夠在您的電腦上執行各種任務，就像一個真正的同事一樣。</p>
+                    <p>OpenClaw 的特點是：<strong>開放原始碼、可自訂、可自己托管</strong>。您的資料和上下文都保存在自己的電腦上，而非被鎖在某個 SaaS 平台裡。</p>
+                </div>
+                <div class="bg-image">
+                    <div class="float">🦞</div>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <div class="choices">
-        <button class="choice scissors" onclick="play('scissors')">
-            <span class="choice-icon">✂️</span>
-            <span class="choice-label">剪刀</span>
-        </button>
-        <button class="choice rock" onclick="play('rock')">
-            <span class="choice-icon">🪨</span>
-            <span class="choice-label">石頭</span>
-        </button>
-        <button class="choice paper" onclick="play('paper')">
-            <span class="choice-icon">📄</span>
-            <span class="choice-label">布</span>
-        </button>
-    </div>
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">強大 <span>功能</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>多平台支援</h3>
+                    <p>支援 WhatsApp、Telegram、Discord、LINE、Signal 等多種通訊軟體，選擇您最習慣的方式與 AI 互動。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>持久記憶</h3>
+                    <p>OpenClaw 會記住您告訴它的一切。您可以建立專屬的人格設定，它會記住您的偏好、習慣和需求。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>主動出擊</h3>
+                    <p>支援定時任務（Cron Jobs）和提醒功能。AI 會在背景主動執行任務，不需要您每次下指令。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>無限擴充</h3>
+                    <p>透過「Skills」系統，您可以自己開發各種擴充功能，讓 AI 幫您連接任何服務或 API。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>開源透明</h3>
+                    <p>所有程式碼公開透明，您可以審查、修改、在自己的伺服器上運行，完全掌控自己的資料。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>電腦控制</h3>
+                    <p>AI 可以控制您的電腦——瀏覽網頁、操作應用程式、讀寫檔案，執行各種需要圖形介面的任務。</p>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <div class="history">
-        <div class="history-title">最近戰績</div>
-        <div class="history-list" id="history"></div>
-    </div>
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">使用者 <span>評價</span></h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>「這是我這幾年來用過最特別的軟體。自從 ChatGPT 以來，這是第一次讓我覺得自己生活在未來。」</p>
+                    <span class="author">— @davemorin</span>
+                </div>
+                <div class="testimonial-card">
+                    <p>「它幫我管理整間公司。從設計、程式碼審查到稅務、專案管理、內容管線... AI 現在是我的隊友，不是工具。」</p>
+                    <span class="author">— @lycfyi</span>
+                </div>
+                <div class="testimonial-card">
+                    <p>「在我的 Raspberry Pi 上安裝 OpenClaw，然後用 Cloudflare 連接，簡直太神奇了。幾分鐘內就用手機建了一個網站！」</p>
+                    <span class="author">— @AlbertMoral</span>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <button class="reset-btn" onclick="resetGame()">重新開始</button>
-    
-    <script>
-        let playerScore = 0;
-        let computerScore = 0;
-        const history = [];
-        const choices = ['scissors', 'rock', 'paper'];
-        const choiceNames = {
-            scissors: '✂️ 剪刀',
-            rock: '🪨 石頭',
-            paper: '📄 布'
-        };
-        
-        function computerPlay() {
-            return choices[Math.floor(Math.random() * 3)];
-        }
-        
-        function play(playerChoice) {
-            const computerChoice = computerPlay();
-            let result;
-            
-            if (playerChoice === computerChoice) {
-                result = 'draw';
-            } else if (
-                (playerChoice === 'scissors' && computerChoice === 'paper') ||
-                (playerChoice === 'rock' && computerChoice === 'scissors') ||
-                (playerChoice === 'paper' && computerChoice === 'rock')
-            ) {
-                result = 'win';
-                playerScore++;
-            } else {
-                result = 'lose';
-                computerScore++;
-            }
-            
-            updateDisplay(playerChoice, computerChoice, result);
-            updateHistory(playerChoice, computerChoice, result);
-        }
-        
-        function updateDisplay(playerChoice, computerChoice, result) {
-            document.getElementById('playerScore').textContent = playerScore;
-            document.getElementById('computerScore').textContent = computerScore;
-            
-            const resultEl = document.getElementById('result');
-            resultEl.className = 'result ' + result;
-            
-            const messages = {
-                win: '🎉 你贏了！',
-                lose: '💀 你輸了！',
-                draw: '🤝 平手！'
-            };
-            
-            resultEl.textContent = `${messages[result]} 你出 ${choiceNames[playerChoice]}，電腦出 ${choiceNames[computerChoice]}`;
-        }
-        
-        function updateHistory(playerChoice, computerChoice, result) {
-            history.unshift({ playerChoice, computerChoice, result });
-            if (history.length > 10) history.pop();
-            
-            const historyEl = document.getElementById('history');
-            historyEl.innerHTML = history.map(h => {
-                const symbols = {
-                    scissors: '✂️',
-                    rock: '🪨',
-                    paper: '📄'
-                };
-                return `<span class="history-item ${h.result}">${symbols[h.playerChoice]} vs ${symbols[h.computerChoice]}</span>`;
-            }).join('');
-        }
-        
-        function resetGame() {
-            playerScore = 0;
-            computerScore = 0;
-            history.length = 0;
-            
-            document.getElementById('playerScore').textContent = '0';
-            document.getElementById('computerScore').textContent = '0';
-            document.getElementById('result').textContent = '選擇你的出拳開始遊戲！';
-            document.getElementById('result').className = 'result';
-            document.getElementById('history').innerHTML = '';
-        }
-    </script>
+    <footer>
+        <div class="container">
+            <p>OpenClaw — 開源的個人 AI 助理框架</p>
+            <p>GitHub: <a href="https://github.com/openclaw/openclaw" target="_blank">github.com/openclaw/openclaw</a></p>
+            <p>文檔: <a href="https://docs.openclaw.ai" target="_blank">docs.openclaw.ai</a></p>
+        </div>
+    </footer>
 </body>
 </html>
