@@ -295,6 +295,88 @@
             text-align: center;
         }
         
+        /* Channels */
+        .channels {
+            padding: 100px 0;
+            background: #0f0f23;
+        }
+        
+        .channels-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .channel-badge {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .channel-badge:hover {
+            transform: scale(1.05);
+            border-color: #00d9ff;
+        }
+        
+        .channel-badge .icon {
+            font-size: 24px;
+        }
+        
+        /* LLMs */
+        .llms {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .llms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .llm-card {
+            background: #1a1a2e;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .llm-card:hover {
+            border-color: #00d9ff;
+            transform: translateY(-5px);
+        }
+        
+        .llm-card h3 {
+            color: #00d9ff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .llm-card p {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .llm-card .tag {
+            display: inline-block;
+            background: #ff6b6b20;
+            color: #ff6b6b;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
         /* Footer */
         footer {
             padding: 40px 0;
@@ -342,6 +424,8 @@
             <nav>
                 <a href="#background">背景</a>
                 <a href="#features">功能</a>
+                <a href="#channels">通訊</a>
+                <a href="#llms">LLM</a>
                 <a href="#videos">影片</a>
                 <a href="#testimonials">評價</a>
                 <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
@@ -410,6 +494,74 @@
                     <div class="feature-icon">🖥️</div>
                     <h3>電腦控制</h3>
                     <p>AI 可以控制您的電腦——瀏覽網頁、操作應用程式、讀寫檔案，執行各種需要圖形介面的任務。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="channels" id="channels">
+        <div class="container">
+            <h2 class="section-title">支援 <span>通訊平台</span></h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">OpenClaw 支援多種通訊平台，選擇您最習慣的方式與 AI 互動</p>
+            <div class="channels-grid">
+                <div class="channel-badge"><span class="icon">💬</span> Telegram</div>
+                <div class="channel-badge"><span class="icon">📱</span> WhatsApp</div>
+                <div class="channel-badge"><span class="icon">💙</span> LINE</div>
+                <div class="channel-badge"><span class="icon">🎮</span> Discord</div>
+                <div class="channel-badge"><span class="icon">🔔</span> Signal</div>
+                <div class="channel-badge"><span class="icon">💬</span> iMessage</div>
+                <div class="channel-badge"><span class="icon">🏠</span> Google Chat</div>
+                <div class="channel-badge"><span class="icon">👥</span> Slack</div>
+                <div class="channel-badge"><span class="icon">🌐</span> Matrix</div>
+                <div class="channel-badge"><span class="icon">💬</span> IRC</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="llms" id="llms">
+        <div class="container">
+            <h2 class="section-title">支援 <span>語言模型</span></h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">OpenClaw 支援多種 LLM 提供者，您可以根據需求選擇最適合的模型</p>
+            <div class="llms-grid">
+                <div class="llm-card">
+                    <h3>Claude (Anthropic)</h3>
+                    <p>Claude 3.5 Sonnet, 3 Opus, 3 Haiku</p>
+                    <span class="tag">支援推理</span>
+                </div>
+                <div class="llm-card">
+                    <h3>GPT (OpenAI)</h3>
+                    <p>GPT-4o, GPT-4o mini, o1, o3</p>
+                    <span class="tag">多模態</span>
+                </div>
+                <div class="llm-card">
+                    <h3>Gemini (Google)</h3>
+                    <p>Gemini 2.0 Flash, Pro, Ultra</p>
+                    <span class="tag">快速回應</span>
+                </div>
+                <div class="llm-card">
+                    <h3>MiniMax</h3>
+                    <p>M2.1, M2.5</p>
+                    <span class="tag">高效能</span>
+                </div>
+                <div class="llm-card">
+                    <h3>DeepSeek</h3>
+                    <p>V3, R1</p>
+                    <span class="tag">開源強者</span>
+                </div>
+                <div class="llm-card">
+                    <h3>Qwen (阿里雲)</h3>
+                    <p>Qwen 2.5, VL</p>
+                    <span class="tag">中文優化</span>
+                </div>
+                <div class="llm-card">
+                    <h3>Llama (Meta)</h3>
+                    <p>Llama 3.1, 3.2, 3.3</p>
+                    <span class="tag">開源本地</span>
+                </div>
+                <div class="llm-card">
+                    <h3>Groq</h3>
+                    <p>Mixtral, Llama, Gemma</p>
+                    <span class="tag">極速推論</span>
                 </div>
             </div>
         </div>
