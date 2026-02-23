@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極速賽車 | Racing Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --accent: #f4a261;
+            --dark: #0d1117;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: 
+                linear-gradient(to bottom, rgba(13, 17, 23, 0.7), var(--dark)),
+                url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1920') center/cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation:1s ease 0.4s both;
+        }
+
+ fadeInUp         .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Racing Strip */
+        .racing-strip {
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary) 0px,
+                var(--primary) 50px,
+                var(--dark) 50px,
+                var(--dark) 100px
+            );
+            animation: race 2s linear infinite;
+        }
+
+        @keyframes race {
+            from { background-position: 0 0; }
+            to { background-position: 100px 0; }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            margin: 1rem auto;
+        }
+
+        /* Schedule */
+        .schedule-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .race-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .race-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .race-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .race-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .race-track {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .race-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .status-upcoming {
+            background: rgba(244, 162, 97, 0.2);
+            color: var(--accent);
+        }
+
+        .status-completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        /* Standings */
+        .standings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .standings-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .standings-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .driver-row {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .driver-row:last-child {
+            border-bottom: none;
+        }
+
+        .position {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            width: 40px;
+            color: var(--primary);
+        }
+
+        .driver-info {
+            flex: 1;
+        }
+
+        .driver-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .driver-team {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .points {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Teams */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .team-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .team-card p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* News */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-excerpt {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+        }
+
+        footer p {
+            color: #888;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .race-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🏎️ RACING PRO</div>
+        <ul class="nav-links">
+            <li><a href="#home">首頁</a></li>
+            <li><a href="#schedule">賽程</a></li>
+            <li><a href="#standings">排名</a></li>
+            <li><a href="#teams">車隊</a></li>
+            <li><a href="#news">新聞</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>2026 <span>賽車</span> 賽季</h1>
+            <p>極速激情 · 追逐夢想 · 超越極限</p>
+            <a href="#schedule" class="cta-btn">查看賽程</a>
+        </div>
+    </section>
+
+    <div class="racing-strip"></div>
+
+    <!-- Schedule -->
+    <section id="schedule">
+        <h2 class="section-title">🏁 2026 賽程</h2>
+        <div class="schedule-grid">
+            <div class="race-card">
+                <div>
+                    <div class="race-date">03月15日</div>
+                    <div class="race-name">🇦🇺 澳洲大獎賽</div>
+                    <div class="race-track">墨爾本賽道 - 58圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">03月29日</div>
+                    <div class="race-name">🇨🇳 中國大獎賽</div>
+                    <div class="race-track">上海國際賽車場 - 56圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">04月06日</div>
+                    <div class="race-name">🇯🇵 日本大獎賽</div>
+                    <div class="race-track">鈴鹿賽道 - 53圈</div>
+                </div>
+                <span class="race-status status-completed">已完成</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">04月20日</div>
+                    <div class="race-name">🇸🇦 沙烏地阿拉伯大獎賽</div>
+                    <div class="race-track">吉達賽道 - 50圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">05月04日</div>
+                    <div class="race-name">🇺🇸 邁阿密大獎賽</div>
+                    <div class="race-track">邁阿密國際賽道 - 57圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
+            </div>
+            <div class="race-card">
+                <div>
+                    <div class="race-date">05月18日</div>
+                    <div class="race-name">🇮🇹 艾米利亞-羅馬涅大獎賽</div>
+                    <div class="race-track">恩佐·法拉利賽道 - 63圈</div>
+                </div>
+                <span class="race-status status-upcoming">即將進行</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Standings -->
+    <section id="standings">
+        <h2 class="section-title">🏆 積分排名</h2>
+        <div class="standings-container">
+            <div class="standings-box">
+                <h3>🏎️ 車手積分</h3>
+                <div class="driver-row">
+                    <span class="position">1</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Max Verstappen</div>
+                        <div class="driver-team">Red Bull Racing</div>
+                    </div>
+                    <span class="points">97 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">2</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Lando Norris</div>
+                        <div class="driver-team">McLaren</div>
+                    </div>
+                    <span class="points">89 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">3</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Oscar Piastri</div>
+                        <div class="driver-team">McLaren</div>
+                    </div>
+                    <span class="points">76 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">4</span>
+                    <div class="driver-info">
+                        <div class="driver-name">George Russell</div>
+                        <div class="driver-team">Mercedes</div>
+                    </div>
+                    <span class="points">64 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">5</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Charles Leclerc</div>
+                        <div class="driver-team">Ferrari</div>
+                    </div>
+                    <span class="points">59 PTS</span>
+                </div>
+            </div>
+            <div class="standings-box">
+                <h3>🏭 車隊積分</h3>
+                <div class="driver-row">
+                    <span class="position">1</span>
+                    <div class="driver-info">
+                        <div class="driver-name">McLaren</div>
+                        <div class="driver-team">Norris / Piastri</div>
+                    </div>
+                    <span class="points">165 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">2</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Red Bull Racing</div>
+                        <div class="driver-team">Verstappen / Perez</div>
+                    </div>
+                    <span class="points">143 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">3</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Mercedes</div>
+                        <div class="driver-team">Russell / Hamilton</div>
+                    </div>
+                    <span class="points">112 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">4</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Ferrari</div>
+                        <div class="driver-team">Leclerc / Sainz</div>
+                    </div>
+                    <span class="points">107 PTS</span>
+                </div>
+                <div class="driver-row">
+                    <span class="position">5</span>
+                    <div class="driver-info">
+                        <div class="driver-name">Aston Martin</div>
+                        <div class="driver-team">Alonso / Stroll</div>
+                    </div>
+                    <span class="points">45 PTS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams -->
+    <section id="teams">
+        <h2 class="section-title">🏎️ 車隊介紹</h2>
+        <div class="teams-grid">
+            <div class="team-card">
+                <div class="team-logo" style="background: #006f3e; color: #fff;">🏴</div>
+                <h3>McLaren</h3>
+                <p>邁凱倫車隊 | 英國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #1d41a2; color: #fff;">🏴</div>
+                <h3>Red Bull Racing</h3>
+                <p>紅牛車隊 | 奧地利</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #27f4d2; color: #000;">🏴</div>
+                <h3>Mercedes</h3>
+                <p>梅賽德斯車隊 | 德國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #e8002d; color: #fff;">🏴</div>
+                <h3>Ferrari</h3>
+                <p>法拉利車隊 | 義大利</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #229971; color: #fff;">🏴</div>
+                <h3>Aston Martin</h3>
+                <p>阿斯頓·馬丁車隊 | 英國</p>
+            </div>
+            <div class="team-card">
+                <div class="team-logo" style="background: #5a8bc1; color: #fff;">🏴</div>
+                <h3>Williams</h3>
+                <p>威廉姆斯車隊 | 英國</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section id="news">
+        <h2 class="section-title">📰 賽車新聞</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-image">🏎️</div>
+                <div class="news-content">
+                    <div class="news-date">2026年2月20日</div>
+                    <div class="news-title">McLaren 延續強勢表現</div>
+                    <div class="news-excerpt">邁凱倫車隊在季前測試中展現出色速度，車隊主管表示對新賽季充滿信心。</div>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🏁</div>
+                <div class="news-content">
+                    <div class="news-date">2026年2月18日</div>
+                    <div class="news-title">2026 賽季即將開跑</div>
+                    <div class="news-excerpt">新賽季將於3月15日在澳洲墨爾本拉開序幕，20位車手將為冠軍而戰。</div>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">⚡</div>
+                <div class="news-content">
+                    <div class="news-date">2026年2月15日</div>
+                    <div class="news-title">新規則帶來新看點</div>
+                    <div class="news-excerpt">2026年賽季引入多項新規則，包括更強大的動力單元與空力套件修改。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo">🏎️ RACING PRO</div>
+        <p>© 2026 Racing Pro. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">📱</a>
+            <a href="#">🐦</a>
+            <a href="#">📘</a>
+            <a href="#">📷</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(13, 17, 23, 0.98)';
+            } else {
+                nav.style.background = 'rgba(13, 17, 23, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
