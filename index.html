@@ -227,6 +227,44 @@
             font-size: 100px;
         }
         
+        /* News */
+        .news {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d9ff;
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+        
+        .news-card h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .news-card p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
         /* Testimonials */
         .testimonials {
             padding: 100px 0;
@@ -251,6 +289,17 @@
             font-size: 16px;
             font-style: italic;
             margin-bottom: 20px;
+        }
+        
+        .testimonial-card p a {
+            color: #00d9ff;
+            text-decoration: none;
+            font-style: normal;
+        }
+        
+        .testimonial-card p a:hover {
+            text-decoration: underline;
+            color: #fff;
         }
         
         .testimonial-card .author {
@@ -479,6 +528,7 @@
                 <a href="#llms">LLM</a>
                 <a href="#macmini">Mac mini</a>
                 <a href="#videos">影片</a>
+                <a href="#news">新聞</a>
                 <a href="#testimonials">評價</a>
                 <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
             </nav>
@@ -670,6 +720,29 @@
         </div>
     </section>
     
+    <section class="news" id="news">
+        <div class="container">
+            <h2 class="section-title">最新 <span>新聞</span></h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <h3>Meta AI Director Runs To Stop OpenClaw From Deleting Inbox</h3>
+                    <p>Meta AI 總監親自阻止 OpenClaw 刪除收件匣的計畫</p>
+                    <a href="https://abmedia.io/meta-ai-director-runs-to-stop-openclaw-from-deleting-inbox" target="_blank" class="btn btn-secondary">閱讀更多</a>
+                </div>
+                <div class="news-card">
+                    <h3>OpenClaw 最新發展動態與市場分析</h3>
+                    <p>深入分析 OpenClaw 在 AI 助理市場的最新發展趨勢</p>
+                    <a href="https://news.cnyes.com/news/id/6345743" target="_blank" class="btn btn-secondary">閱讀更多</a>
+                </div>
+                <div class="news-card">
+                    <h3>Google AI 代碼存取限制與 OpenClaw 風險評估</h3>
+                    <p>探討 Google AI 對代碼存取的限制及其對 OpenClaw 的影響</p>
+                    <a href="https://www.newmobilelife.com/2026/02/24/google-ai-code-access-limit-openclaw-risk/" target="_blank" class="btn btn-secondary">閱讀更多</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section class="testimonials" id="testimonials">
         <div class="container">
             <h2 class="section-title">使用者 <span>評價</span></h2>
@@ -685,6 +758,18 @@
                 <div class="testimonial-card">
                     <p>「在我的 Raspberry Pi 上安裝 OpenClaw，然後用 Cloudflare 連接，簡直太神奇了。幾分鐘內就用手機建了一個網站！」</p>
                     <span class="author">— @AlbertMoral</span>
+                </div>
+                <div class="testimonial-card">
+                    <p><a href="https://abmedia.io/meta-ai-director-runs-to-stop-openclaw-from-deleting-inbox" target="_blank">Meta AI Director Runs To Stop OpenClaw From Deleting Inbox</a></p>
+                    <span class="author">— ABMedia</span>
+                </div>
+                <div class="testimonial-card">
+                    <p><a href="https://news.cnyes.com/news/id/6345743" target="_blank">OpenClaw 最新發展動態與市場分析</a></p>
+                    <span class="author">— 鉅亨網</span>
+                </div>
+                <div class="testimonial-card">
+                    <p><a href="https://www.newmobilelife.com/2026/02/24/google-ai-code-access-limit-openclaw-risk/" target="_blank">Google AI 代碼存取限制與 OpenClaw 風險評估</a></p>
+                    <span class="author">— New Mobile Life</span>
                 </div>
             </div>
         </div>
