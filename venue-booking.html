@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>場館預約 | SportSpot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box input, .search-box select {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .search-box input:focus, .search-box select:focus {
+            outline: 2px solid var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Venue Grid */
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .venue-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .venue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .venue-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--gray);
+            position: relative;
+        }
+
+        .venue-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .venue-tag.basketball { background: #f59e0b; }
+        .venue-tag.badminton { background: #10b981; }
+        .venue-tag.tennis { background: #8b5cf6; }
+        .venue-tag.swimming { background: #06b6d4; }
+
+        .venue-info {
+            padding: 1.5rem;
+        }
+
+        .venue-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .venue-location {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .venue-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .venue-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--gray);
+        }
+
+        .venue-detail i {
+            color: var(--primary);
+        }
+
+        .venue-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .venue-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .venue-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .venue-rating i {
+            color: var(--accent);
+        }
+
+        .venue-rating span {
+            margin-left: 0.3rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Booking Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .time-slot {
+            padding: 0.6rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .time-slot:hover {
+            border-color: var(--primary);
+        }
+
+        .time-slot.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .time-slot.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #64748b;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .venue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 300;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-map-marker-alt"></i>
+                SportSpot
+            </div>
+            <nav>
+                <a href="#" class="active">首頁</a>
+                <a href="#venues">場館列表</a>
+                <a href="#about">關於我們</a>
+                <a href="#contact">聯絡我們</a>
+            </nav>
+            <div>
+                <button class="btn btn-secondary">登入</button>
+                <button class="btn btn-primary">註冊</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>預訂心儀的運動場地</h1>
+        <p>輕鬆預約籃球場、羽球場、網球場等多种運動場地</p>
+        <div class="search-box">
+            <input type="text" placeholder="搜尋場館名稱...">
+            <select id="sportType">
+                <option value="">運動類型</option>
+                <option value="basketball">籃球</option>
+                <option value="badminton">羽球</option>
+                <option value="tennis">網球</option>
+                <option value="swimming">游泳</option>
+            </select>
+            <select id="location">
+                <option value="">選擇地區</option>
+                <option value="taipei">台北市</option>
+                <option value="newtaipei">新北市</option>
+                <option value="taichung">台中市</option>
+                <option value="kaohsiung">高雄市</option>
+            </select>
+            <button class="btn btn-primary">搜尋</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <h2 class="section-title">
+            <i class="fas fa-fire"></i> 熱門場館
+        </h2>
+
+        <!-- Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="basketball">籃球</button>
+            <button class="filter-btn" data-filter="badminton">羽球</button>
+            <button class="filter-btn" data-filter="tennis">網球</button>
+            <button class="filter-btn" data-filter="swimming">游泳</button>
+        </div>
+
+        <!-- Venue Grid -->
+        <div class="venue-grid" id="venueGrid">
+            <!-- Venues will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>預訂場館</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Form will be dynamically inserted -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="submitBooking()">確認預訂</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2>預訂成功！</h2>
+        <p>您的預訂已確認，我們會發送確認信到您的電子郵件</p>
+        <br>
+        <button class="btn btn-primary" onclick="closeModal()">關閉</button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>關於 SportSpot</h3>
+                <p>我們致力於讓運動場地預訂變得更簡單、更方便</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-line"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>快速連結</h3>
+                <a href="#">首頁</a>
+                <a href="#venues">場館列表</a>
+                <a href="#about">關於我們</a>
+                <a href="#contact">聯絡我們</a>
+            </div>
+            <div class="footer-section">
+                <h3>運動類型</h3>
+                <a href="#">籃球場</a>
+                <a href="#">羽球場</a>
+                <a href="#">網球場</a>
+                <a href="#">游泳池</a>
+            </div>
+            <div class="footer-section">
+                <h3>聯絡我們</h3>
+                <p><i class="fas fa-phone"></i> 02-1234-5678</p>
+                <p><i class="fas fa-envelope"></i> info@sportspot.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 台北市信義區某路123號</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SportSpot. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Venue Data
+        const venues = [
+            {
+                id: 1,
+                name: "信義運動中心",
+                type: "basketball",
+                typeName: "籃球",
+                location: "台北市信義區",
+                price: 800,
+                rating: 4.8,
+                reviews: 256,
+                icon: "fas fa-basketball-ball",
+                available: true
+            },
+            {
+                id: 2,
+                name: "中山羽球館",
+                type: "badminton",
+                typeName: "羽球",
+                location: "台北市中山區",
+                price: 350,
+                rating: 4.6,
+                reviews: 189,
+                icon: "fas fa-table-tennis",
+                available: true
+            },
+            {
+                id: 3,
+                name: "大安網球場",
+                type: "tennis",
+                typeName: "網球",
+                location: "台北市大安區",
+                price: 600,
+                rating: 4.7,
+                reviews: 142,
+                icon: "fas fa-racket",
+                available: true
+            },
+            {
+                id: 4,
+                name: "運動公園游泳池",
+                type: "swimming",
+                typeName: "游泳",
+                location: "新北市新莊區",
+                price: 150,
+                rating: 4.5,
+                reviews: 320,
+                icon: "fas fa-swimmer",
+                available: true
+            },
+            {
+                id: 5,
+                name: "士林籃球場",
+                type: "basketball",
+                typeName: "籃球",
+                location: "台北市士林區",
+                price: 700,
+                rating: 4.4,
+                reviews: 98,
+                icon: "fas fa-basketball-ball",
+                available: true
+            },
+            {
+                id: 6,
+                name: "中正羽球中心",
+                type: "badminton",
+                typeName: "羽球",
+                location: "台北市中正區",
+                price: 400,
+                rating: 4.9,
+                reviews: 267,
+                icon: "fas fa-table-tennis",
+                available: true
+            },
+            {
+                id: 7,
+                name: "內湖網球場",
+                type: "tennis",
+                typeName: "網球",
+                location: "台北市內湖區",
+                price: 550,
+                rating: 4.6,
+                reviews: 156,
+                icon: "fas fa-racket",
+                available: true
+            },
+            {
+                id: 8,
+                name: "南港運動中心",
+                type: "swimming",
+                typeName: "游泳",
+                location: "台北市南港區",
+                price: 180,
+                rating: 4.7,
+                reviews: 412,
+                icon: "fas fa-swimmer",
+                available: true
+            }
+        ];
+
+        // Time slots
+        const timeSlots = [
+            "06:00", "07:00", "08:00", "09:00",
+            "10:00", "11:00", "12:00", "13:00",
+            "14:00", "15:00", "16:00", "17:00",
+            "18:00", "19:00", "20:00", "21:00"
+        ];
+
+        let selectedVenue = null;
+        let selectedDate = null;
+        let selectedTime = [];
+
+        // Render venues
+        function renderVenues(filter = 'all') {
+            const grid = document.getElementById('venueGrid');
+            const filteredVenues = filter === 'all' 
+                ? venues 
+                : venues.filter(v => v.type === filter);
+            
+            grid.innerHTML = filteredVenues.map(venue => `
+                <div class="venue-card">
+                    <div class="venue-image">
+                        <i class="${venue.icon}"></i>
+                        <span class="venue-tag ${venue.type}">${venue.typeName}</span>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">${venue.name}</div>
+                        <div class="venue-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${venue.location}
+                        </div>
+                        <div class="venue-details">
+                            <div class="venue-detail">
+                                <i class="fas fa-clock"></i>
+                                06:00-22:00
+                            </div>
+                            <div class="venue-detail">
+                                <i class="fas fa-users"></i>
+                                2-10人
+                            </div>
+                        </div>
+                        <div class="venue-price">
+                            NT$ ${venue.price} <span>/ 小時</span>
+                        </div>
+                        <div class="venue-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>${venue.rating} (${venue.reviews}則評論)</span>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" style="width: 100%" onclick="openBooking(${venue.id})">
+                            <i class="fas fa-calendar-check"></i> 立即預訂
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderVenues(btn.dataset.filter);
+            });
+        });
+
+        // Open booking modal
+        function openBooking(venueId) {
+            selectedVenue = venues.find(v => v.id === venueId);
+            selectedTime = [];
+            
+            const modal = document.getElementById('bookingModal');
+            const modalBody = document.getElementById('modalBody');
+            const successMessage = document.getElementById('successMessage');
+            
+            successMessage.classList.remove('active');
+            modalBody.style.display = 'block';
+            
+            // Generate random unavailable slots
+            const unavailableSlots = timeSlots
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 4);
+            
+            modalBody.innerHTML = `
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary);">${selectedVenue.name}</h3>
+                    <p style="color: var(--gray);">${selectedVenue.location}</p>
+                    <p style="font-weight: 700; margin-top: 0.5rem;">
+                        NT$ ${selectedVenue.price} / 小時
+                    </p>
+                </div>
+                
+                <div class="form-group">
+                    <label>選擇日期</label>
+                    <input type="date" id="bookingDate" onchange="onDateChange()">
+                </div>
+                
+                <div class="form-group" id="timeSlotsContainer" style="display: none;">
+                    <label>選擇時段</label>
+                    <div class="time-slots" id="timeSlots">
+                        ${timeSlots.map(time => `
+                            <div class="time-slot" data-time="${time}" onclick="toggleTime('${time}')">
+                                ${time}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>您的姓名</label>
+                    <input type="text" id="name" placeholder="請輸入姓名">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>電子郵件</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>電話</label>
+                        <input type="tel" id="phone" placeholder="0912-345-678">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>備註（選填）</label>
+                    <textarea id="note" rows="3" placeholder="有任何特殊需求嗎？"></textarea>
+                </div>
+                
+                <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 500;">
+                        <span>預訂時段：</span>
+                        <span id="selectedTimeDisplay">尚未選擇</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-weight: 500; margin-top: 0.5rem;">
+                        <span>總金額：</span>
+                        <span id="totalPrice" style="color: var(--primary);">NT$ 0</span>
+                    </div>
+                </div>
+            `;
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bookingDate').min = today;
+            
+            modal.classList.add('active');
+        }
+
+        // Date change handler
+        function onDateChange() {
+            selectedDate = document.getElementById('bookingDate').value;
+            document.getElementById('timeSlotsContainer').style.display = 'block';
+            
+            // Randomly disable some time slots
+            const slots = document.querySelectorAll('.time-slot');
+            slots.forEach(slot => {
+                slot.classList.remove('selected', 'disabled');
+                if (Math.random() < 0.2) {
+                    slot.classList.add('disabled');
+                }
+            });
+        }
+
+        // Toggle time selection
+        function toggleTime(time) {
+            const slot = document.querySelector(`.time-slot[data-time="${time}"]`);
+            if (slot.classList.contains('disabled')) return;
+            
+            if (slot.classList.contains('selected')) {
+                slot.classList.remove('selected');
+                selectedTime = selectedTime.filter(t => t !== time);
+            } else {
+                slot.classList.add('selected');
+                selectedTime.push(time);
+            }
+            
+            updatePriceDisplay();
+        }
+
+        // Update price display
+        function updatePriceDisplay() {
+            const timeDisplay = document.getElementById('selectedTimeDisplay');
+            const priceDisplay = document.getElementById('totalPrice');
+            
+            if (selectedTime.length === 0) {
+                timeDisplay.textContent = '尚未選擇';
+                priceDisplay.textContent = 'NT$ 0';
+            } else {
+                const sorted = selectedTime.sort();
+                timeDisplay.textContent = `${sorted.join(', ')}`;
+                priceDisplay.textContent = `NT$ ${selectedTime.length * selectedVenue.price}`;
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+        }
+
+        // Submit booking
+        function submitBooking() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('bookingDate').value;
+            
+            if (!name || !email || !phone || !date || selectedTime.length === 0) {
+                showToast('請填寫所有必填欄位', 'error');
+                return;
+            }
+            
+            const modalBody = document.getElementById('modalBody');
+            modalBody.style.display = 'none';
+            
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('active');
+            
+            showToast('預訂成功！', 'success');
+        }
+
+        // Show toast
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('bookingModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        renderVenues();
+    </script>
+</body>
+</html>
